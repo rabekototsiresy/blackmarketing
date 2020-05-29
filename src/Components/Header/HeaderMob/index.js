@@ -33,7 +33,7 @@ export default function MenuAppBar() {
   return (
     <div className={classes.root}>
       
-      <AppBar position="fixed" elevation={1} color="inherit">
+      <AppBar position="fixed" elevation={1} color="inherit" style={{marginTop: '20px'}}>
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <Link to="/">

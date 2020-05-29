@@ -27,7 +27,6 @@ const App = () => {
           <Route  path="/activity" component={Activity} />
           <Route  path="/20admin20" component={Admin} />
           <Route  path="/close" component={Close} />
-
         </Switch>
       </BrowserRouter>
     </div>

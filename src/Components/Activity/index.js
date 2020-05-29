@@ -75,12 +75,17 @@ class Activity extends Component {
         </Grid>
 
         <Grid itme={12} style={{padding: '10px 18px'}}>
-        <Button  color="primary" href="#contained-buttons" style={{fontWeight: 'bolder',textTransform: 'lowercase'}}>
+        <Button  
+        color="primary" 
+        href="#contained-buttons" 
+        style={{fontWeight: 'bolder',textTransform: 'lowercase'}}
+        >
         More informations
-</Button>
+        
+        </Button>
 
 
-{/* <Link to="/close" style={{textDecoration: 'none'}}> */}
+ <Link to="/close" style={{textDecoration: 'none'}}> 
 <Button 
 variant="contained" 
 color="primary" 
@@ -92,7 +97,7 @@ onClick={this.redirectGmail}
 
 Yes
 </Button>
-// {/* </Link> */}
+ </Link> 
           
         </Grid>
 

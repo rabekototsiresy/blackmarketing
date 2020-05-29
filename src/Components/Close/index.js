@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import {  Grid,Button } from '@material-ui/core'
 import Header from '../Header';
-
+import {FirebaseContext} from '../Firebase'
 
 
 const style = {
@@ -9,6 +9,7 @@ const style = {
 }
 
 const closeWin = ()=>{
+
 const self = this
   window.opener = self;
   window.close();
