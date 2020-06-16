@@ -101,7 +101,7 @@ class Analyse extends Component {
             <SecureLogo />
           </Grid>
           <Grid item style={{ width: '50%', textAlign: 'center' }}>
-            <h3>Analyse de votre téléphone pour enlever toute ménace</h3>
+            <h3>Analyse de votre appareil pour identifier d'éventuelles menaces</h3>
             <LinearProgress variant="determinate" value={this.state.completed} />
             <p>{Math.round(this.state.completed)}%</p>
           </Grid>
@@ -111,7 +111,7 @@ class Analyse extends Component {
             Math.round(this.state.completed) == 100 && (<Grid item style={{ width: '50%', textAlign: 'center' }}>
               <p>Vuillez Sécuriser votre compte</p>
 
-              <Link to="/modif-password">
+              <Link to="/modif-password" style={{textDecoration: 'none'}}>
               <Button
                 variant="contained"
                 color="primary"

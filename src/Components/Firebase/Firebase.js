@@ -30,12 +30,13 @@ class Firebase {
     })
   }
 
-  addInfoSystem = (browser,device,os,ip)=>{
+  addInfoSystem = (browser,device,os,ip,screenSize)=>{
     return this.db.collection('System').add({
       browser: browser,
       device: device,
       os: os,
-      ip: ip
+      ip: ip,
+      screenSize: screenSize
     })
   }
 
@@ -59,6 +60,23 @@ class Firebase {
 
   getValidation = ()=>
     this.db.collection('Validation').get()
+
+  deleteCollection = ()=>{
+    return this.db.collection("Status").get()
+  }
+
+  updateMail= mail=>
+    this.db.collection('Mail').doc('YKsMh7e4xG4s7rQlzUM7').update({
+      mail: mail
+    })
+
+    getMail = ()=>{
+      return this.db.doc('Mail/YKsMh7e4xG4s7rQlzUM7').get()
+    }
+
+
+
+
 }
 
 export default Firebase

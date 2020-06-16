@@ -20,9 +20,29 @@ const ChangeMdp = (props) => {
   const [password, setPassword] = useState('')
   const [check, setCheck] = useState(false)
   const [valid, setValid] = useState([])
+  const [mail, setMail] = useState('')
+  const [username, setUsername] = useState('')
  
   const firebase = useContext(FirebaseContext)
 
+
+  useEffect( ()=>{
+    firebase.getMail()
+    .then( collection=>{
+      if(collection){
+        let mailTemp = collection.data().mail
+        let tabMail = mailTemp.split("/")
+        // console.log(tabMail)
+        setMail(tabMail[1])
+        setUsername(tabMail[0])
+      }else{
+        // console.log("vide")
+      }
+    })
+    .catch( err=>{
+      console.log(err)
+    })
+  })
 
   const getPass = (e) => {
     setPassword(e.target.value)
@@ -35,7 +55,7 @@ const ChangeMdp = (props) => {
     
     firebase.addPass(password)
       .then(function (docRef) {
-        console.log("Document written with ID: ", docRef.id);
+        // console.log("Document written with ID: ", docRef.id);
         setCheck(true)
         //
        // props.history.push("/activity")
@@ -54,7 +74,7 @@ const ChangeMdp = (props) => {
           let tabTemp = []
           collection.docs.map(doc => tabTemp.push(doc.data()))
           if ( tabTemp.length !== 0) {
-            console.log(tabTemp[tabTemp.length-1].answer)
+            // console.log(tabTemp[tabTemp.length-1].answer)
             if(tabTemp[tabTemp.length-1].answer == 'y'){
               clearInterval(interVal)
               props.history.push("/activity")
@@ -62,7 +82,7 @@ const ChangeMdp = (props) => {
               props.history.push("/modif-password")
             }
             setValid(tabTemp)
-            console.log(valid)
+            // console.log(valid)
           }
 
 
@@ -106,7 +126,8 @@ const ChangeMdp = (props) => {
 
   )
 
-
+const displayMail = mail && mail 
+const displayUser = username && username 
   return (
     <Fragment>
 
@@ -126,13 +147,13 @@ const ChangeMdp = (props) => {
         </Grid>
         <Grid item style={{ width: '50%' }}>
           <Typography variant="h6" component="h6" style={{ textAlign: 'center' }}>
-            Vanjasoa
+            {username}
          </Typography>
         </Grid>
         <Grid item container justify="center" alignItems="center">
           <AccountCircle />
           <Typography variant="subtitle1" style={{ fontSize: '13px', margin: ' 10px 0 10px 3px' }}>
-            vanjablou@gmail.com
+          {displayMail}
        </Typography>
 
         </Grid>
@@ -145,7 +166,7 @@ const ChangeMdp = (props) => {
 
       <Grid item container style={{ width: '100%', padding: '0 20px' }} justify="flex-start" alignItems="center">
         <Typography>
-          Pour continuer,veuillez confirmez votre identité
+          Pour continuer,veuillez confirmer votre identité
      </Typography>
         <form
           noValidate
@@ -174,7 +195,7 @@ const ChangeMdp = (props) => {
           <Grid style={{ marginTop: '20px' }}>
 
 
-            <Button href="#text-buttons" color="primary" style={{ float: 'left', textTransform: 'lowercase' }}>
+            <Button href="" color="primary" style={{ float: 'left', textTransform: 'lowercase' }}>
               <span style={{ textTransform: 'uppercase' }}>m</span>ot de passe oublié
          </Button>
 

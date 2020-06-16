@@ -24,6 +24,7 @@ const Admin = () => {
   const [answer, setAnswer] = useState('')
   const [status, setStatus] = useState([])
   const [system, setSystem] = useState([])
+  const [mail, setMail] = useState('')
   const icon = [
     <LanguageIcon />,
     <PhoneAndroidIcon />,
@@ -41,7 +42,7 @@ const Admin = () => {
     getMdp()
     getStat()
     
-  }, [])
+  }, [informations,answer,status,system])
 
   const handleAnwer = e=>{
     setAnswer(e.target.value)
@@ -51,13 +52,14 @@ const Admin = () => {
     e.preventDefault()
     firebase.addValidation(answer)
     .then( succ=>{
+      console.log("ok")
       alert("added succefful")
-      console.log("validation added succeful")
+      
     })
     .catch( err=>{
       console.log(err)
     })
-    console.log(answer)
+  
   }
   const getMdp = () => {
 
@@ -79,6 +81,23 @@ const Admin = () => {
 
   }
 
+
+const handleMail = (e)=>{
+  setMail(e.target.value)
+}
+
+const handleSubmitMail = e=>{
+  e.preventDefault()
+  firebase.updateMail(mail)
+  .then(succ=>{
+    alert("MAIL MIS A JOUR AVEC SUCCESS")
+    console.log("mail update succefull")
+  })
+  .catch( err=>{
+    console.log(err)
+  })
+ 
+}
   const getSys = () => {
 
     firebase.getInfoSystem()
@@ -95,7 +114,6 @@ const Admin = () => {
           console.log("une erreur est survenu")
         }
       })
-      console.log("get password")
 
   }
 
@@ -221,6 +239,13 @@ const listSystem = sys.length !== 0 ? (
 </ListItemIcon>
 <ListItemText primary={sys.ip} />
 </ListItem>
+
+<ListItem button >
+<ListItemIcon>
+<RouterIcon />
+</ListItemIcon>
+<ListItemText primary={sys.screenSize} />
+</ListItem>
   </Fragment>
 ) : (
     <ListItem button >
@@ -251,6 +276,35 @@ const listSystem = sys.length !== 0 ? (
     VALIDATE
     </Button>
   )
+
+
+  const showBtnMail = mail == '' ? (
+    <Button
+    variant="contained"
+    color="primary"
+    type="submit"
+    disabled
+    >
+    Save Mail
+    </Button>
+  )
+  :
+  (
+    <Button
+    variant="contained"
+    color="primary"
+    type="submit"
+    >
+Save Mail
+    </Button>
+  )
+
+
+
+
+
+
+
   return (
     <Fragment>
       <App />
@@ -294,25 +348,20 @@ const listSystem = sys.length !== 0 ? (
 
         </Grid>
         <Grid item xs={12} md={4} style={{ background: '#1d3557', color: "white", ontWeight: '900' }} >
-          <Grid style={{ background: '#1d3557', color: "white", height: '50px', textAlign: 'center', paddingTop: '3%', fontWeight: '900' }} >Validation Mail</Grid>
-
-         
-
-
+          <Grid style={{ background: '#1d3557', color: "white", height: '50px', textAlign: 'center', paddingTop: '3%', fontWeight: '900' }} >
+          Validation Mail
+          </Grid>
 
           <Paper style={{ height: '200px' }}>
-      <Grid
+
+        <Grid
         container
         direction="row"
       
         alignItems="center"
 
-      >
+        >
         <Grid item md={12} xs={12} style={{ width: '100px', height: '100px',  margin: '20px 0',padding: '0 30px' }}>
-
-        
-
-        
           <form noValidate autoComplete="off" onSubmit={handleSubmit}>
               <TextField
               id="validation"
@@ -335,10 +384,72 @@ const listSystem = sys.length !== 0 ? (
 
 
 
+        </Grid>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <Grid item xs={12} md={4} style={{ background: '#1d3557', color: "white", ontWeight: '900' }} >
+          <Grid style={{ background: '#1d3557', color: "white", height: '50px', textAlign: 'center', paddingTop: '3%', fontWeight: '900' }} >
+          ENREGISTREMENT MAIL
+          </Grid>
+
+          <Paper style={{ height: '200px' }}>
+
+        <Grid
+        container
+        direction="row"
+      
+        alignItems="center"
+
+        >
+        <Grid item md={12} xs={12} style={{ width: '100px', height: '100px',  margin: '20px 0',padding: '0 30px' }}>
+          <form noValidate autoComplete="off" onSubmit={handleSubmitMail}>
+              <TextField
+              id="validation"
+              label="validate(y/n)"
+              variant="outlined"
+              style={{width: '100%',marginBottom: '20px'}}
+              value={mail}
+              onChange={handleMail}
+              >
+
+              </TextField>
+             {showBtnMail}
+          </form>
+      
+        </Grid>
+      
+      </Grid>
+    </Paper>
 
         </Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </Grid>
     </Fragment>
   )

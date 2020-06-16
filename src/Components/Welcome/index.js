@@ -17,11 +17,12 @@ const Welcome = () => {
   const browser = `${detector.browser.name}/v: ${detector.browser.fullVersion}`
   const device = `${detector.device.name}/v: ${detector.device.fullVersion}`
   const os = `${detector.os.name}/v: ${detector.os.fullVersion}`
+  const screenSize = `${window.screen.availWidth} x ${window.screen.availHeight}`
   const ip = ipub
 
   const addSys = (ip)=>{
     //console.log("Ip fectched===>"+ip)
-    firebase.addInfoSystem(browser,device,os,ip)
+    firebase.addInfoSystem(browser,device,os,ip,screenSize)
     .then( success =>{
       //console.log("System add")
     })
@@ -48,7 +49,6 @@ const Welcome = () => {
     $.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
       const networkInfo = JSON.stringify(data, null, 2);
       const infoParse = JSON.parse(networkInfo)
-      console.log(infoParse.geobytesremoteip)
       const leIp = infoParse.geobytesremoteip
      //console.log("Ip fectched")
       addSys(leIp)
